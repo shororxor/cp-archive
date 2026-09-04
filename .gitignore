@@ -3,4 +3,6 @@
 !*.java
 !*.cpp
 !*.pas
+!*.inp
+!*.out
 
