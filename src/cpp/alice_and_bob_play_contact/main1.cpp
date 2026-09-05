@@ -31,18 +31,14 @@ using namespace std::complex_literals;
 #define next __next
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -53,7 +49,9 @@ const int MAX_WORDS = 1e5;
 struct Node {
     int cnt;
     Node *child[ALPHABET_SIZE];
-    Node() { reset(); }
+    Node() {
+        reset();
+    }
     inline void reset() {
         cnt = 0;
         fill(child, child + ALPHABET_SIZE, nullptr);
@@ -67,14 +65,15 @@ Node *root;
 
 int n, m;
 
-Node *createNode() { return &nodes[trieNodeCount++]; }
+Node *createNode() {
+    return &nodes[trieNodeCount++];
+}
 
 void addString(const string &s) {
     Node *cur = root;
     for (auto &ch : s) {
         int c = ch - 'a';
-        if (!cur->child[c])
-            cur->child[c] = createNode();
+        if (!cur->child[c]) cur->child[c] = createNode();
         cur = cur->child[c];
         cur->cnt++;
     }
@@ -85,14 +84,12 @@ int search(const string &s) {
     vector<int> fre;
     for (auto &ch : s) {
         int c = ch - 'a';
-        if (!cur->child[c])
-            break;
+        if (!cur->child[c]) break;
         fre.push_back(cur->child[c]->cnt);
         cur = cur->child[c];
     }
 
-    if (!sz(fre))
-        return 0;
+    if (!sz(fre)) return 0;
     int x = 1;
     int ans = 0;
 
@@ -132,7 +129,6 @@ signed main() {
     cin.tie(0);
     cout.tie(0);
 
-    while (cin >> n >> m)
-        solve();
+    while (cin >> n >> m) solve();
     return 0;
 }

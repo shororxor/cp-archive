@@ -31,18 +31,14 @@ using namespace std::complex_literals;
 #define next __next
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -57,14 +53,15 @@ struct Node {
 
 Node *root;
 
-Node *createNode() { return new Node(); }
+Node *createNode() {
+    return new Node();
+}
 
 void addVal(int x) {
     Node *cur = root;
     FORD(i, 30, 0) {
         int j = ((x >> i) & 1);
-        if (!cur->child[j])
-            cur->child[j] = createNode();
+        if (!cur->child[j]) cur->child[j] = createNode();
         cur = cur->child[j];
         cur->cnt++;
     }
@@ -88,14 +85,15 @@ int queryVal(int x) {
             if (cur->child[1] && cur->child[1]->cnt) {
                 cur = cur->child[1];
                 ans += (1 << i);
-            } else
-                cur = cur->child[0];
-        } else if (k == 1) {
+            }
+            else cur = cur->child[0];
+        }
+        else if (k == 1) {
             if (cur->child[0] && cur->child[0]->cnt) {
                 cur = cur->child[0];
                 ans += (1 << i);
-            } else
-                cur = cur->child[1];
+            }
+            else cur = cur->child[1];
         }
     }
     return ans;
@@ -110,12 +108,9 @@ void solve() {
     addVal(0);
     while (q--) {
         cin >> t >> x;
-        if (t == '+')
-            addVal(x);
-        else if (t == '-')
-            removeVal(x);
-        else
-            printf("%d\n", queryVal(x));
+        if (t == '+') addVal(x);
+        else if (t == '-') removeVal(x);
+        else printf("%d\n", queryVal(x));
     }
 }
 

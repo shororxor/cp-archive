@@ -25,8 +25,7 @@ class Solution {
         int k = Integer.parseInt(token[1]);
 
         token = br.readLine().split(" ");
-        PriorityQueue<Node> minHeap =
-            new PriorityQueue<>((a, b) -> Integer.compare(a.value, b.value));
+        PriorityQueue<Node> minHeap = new PriorityQueue<>((a, b) -> Integer.compare(a.value, b.value));
 
         for (int i = 0; i < k; i++) {
             minHeap.add(new Node(Integer.parseInt(token[i]), i + 1));
@@ -44,7 +43,8 @@ class Solution {
                     out.println("DONE");
                     break;
                 }
-            } else {
+            }
+            else {
                 int val = Integer.parseInt(input);
                 minHeap.add(new Node(val, curIndex));
             }

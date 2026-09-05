@@ -33,18 +33,14 @@ using namespace std::complex_literals;
 #define div div__
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -53,16 +49,19 @@ int A[MAX + 1][MAX + 1];
 int sum[MAX + 1][MAX + 1];
 int g[MAX + 1][MAX + 1];
 
-int getSumRow(int x, int y) { return sum[x][y] - sum[x - 1][y]; }
+int getSumRow(int x, int y) {
+    return sum[x][y] - sum[x - 1][y];
+}
 
-int getSumCol(int x, int y) { return sum[x][y] - sum[x][y - 1]; }
+int getSumCol(int x, int y) {
+    return sum[x][y] - sum[x][y - 1];
+}
 
 int getMex(vector<int> &Q) {
     int res = 0;
     sort(Q.begin(), Q.end());
     for (int &q : Q)
-        if (q == res)
-            ++res;
+        if (q == res) ++res;
     return res;
 }
 
@@ -77,10 +76,8 @@ void solve() {
     g[0][0] = 0;
     FOR(x, 1, n) FOR(y, 1, n) {
         vector<int> Q;
-        if (getSumRow(x, y) % 2 == 0)
-            Q.push_back(g[x - 1][y]);
-        if (getSumCol(x, y) % 2 == 0)
-            Q.push_back(g[x][y - 1]);
+        if (getSumRow(x, y) % 2 == 0) Q.push_back(g[x - 1][y]);
+        if (getSumCol(x, y) % 2 == 0) Q.push_back(g[x][y - 1]);
         g[x][y] = getMex(Q);
     }
 
@@ -101,7 +98,6 @@ signed main() {
 
     int T;
     cin >> T;
-    while (T--)
-        solve();
+    while (T--) solve();
     return 0;
 }

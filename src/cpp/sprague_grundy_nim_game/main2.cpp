@@ -29,18 +29,14 @@ using namespace std::complex_literals;
 #define ite std::vector<int>::iterator
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -51,15 +47,12 @@ const int MAX = 1000;
 State dp[MAX];
 
 State getState(int u) {
-    if (dp[u] != State::Default)
-        return dp[u];
-    if (u == 0)
-        return dp[u] = State::Lose;
+    if (dp[u] != State::Default) return dp[u];
+    if (u == 0) return dp[u] = State::Lose;
 
     // for valid move (u, v) in Q
     FORD(v, u - 1, max(u - 3, 0)) {
-        if (getState(v) == State::Lose)
-            return dp[u] = State::Win;
+        if (getState(v) == State::Lose) return dp[u] = State::Win;
     }
 
     return dp[u] = State::Lose;
@@ -68,10 +61,8 @@ State getState(int u) {
 void solve() {
     getState(100);
     FOR(i, 1, 100) {
-        if (dp[i] == State::Win)
-            printf("i = %d | win\n", i);
-        else
-            printf("i = %d | lose\n", i);
+        if (dp[i] == State::Win) printf("i = %d | win\n", i);
+        else printf("i = %d | lose\n", i);
     }
 }
 

@@ -30,32 +30,34 @@ using namespace std::complex_literals;
 #define ite std::vector<int>::iterator
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
 // data structures
 struct Factor {
     int m, x, mx;
-    Factor(int m_ = 0, int x_ = 0, int mx_ = 0) : m(m_), x(x_), mx(mx_) {}
-    static Factor makeDefault() { return Factor(); }
+    Factor(int m_ = 0, int x_ = 0, int mx_ = 0) : m(m_), x(x_), mx(mx_) {
+    }
+    static Factor makeDefault() {
+        return Factor();
+    }
 };
 
 struct Congruence {
     int a, m;
-    Congruence(int a_ = 0, int m_ = 1) : a(a_), m(m_) {}
-    void process() { a = (a % m + m) % m; }
+    Congruence(int a_ = 0, int m_ = 1) : a(a_), m(m_) {
+    }
+    void process() {
+        a = (a % m + m) % m;
+    }
 };
 
 const int mod = 142857;
@@ -79,8 +81,7 @@ void factorization() {
             mods.push_back(Factor(i, cnt, prod));
         }
     }
-    if (m > 1)
-        mods.push_back(Factor(m, 1, m));
+    if (m > 1) mods.push_back(Factor(m, 1, m));
     nmods = (int)mods.size() - 1;
 }
 
@@ -111,8 +112,7 @@ int fastpow(int a, int b, int m) {
     a %= m;
     int res = 1;
     while (b) {
-        if (b & 1)
-            res = (res * a) % m;
+        if (b & 1) res = (res * a) % m;
         a = (a * a) % m;
         b >>= 1;
     }
@@ -137,8 +137,7 @@ int prod_cycle(Factor factor) {
 
 // F(n) = B(n) * F(n / m)
 int factor_without_m_mod(int n, int cycle, Factor factor) {
-    if (n == 0)
-        return 1;
+    if (n == 0) return 1;
     int res = 1;
 
     // B(n) = cyclic product * remainder part
@@ -152,10 +151,8 @@ int factor_without_m_mod(int n, int cycle, Factor factor) {
 
 // main nCk for each prime with power
 int nCk_mod_prime_pow(int n, int k, Factor factor) {
-    int alpha =
-        v_fact(n, factor.m) - v_fact(k, factor.m) - v_fact(n - k, factor.m);
-    if (alpha >= factor.x)
-        return 0; // nCk divisible by m^x
+    int alpha = v_fact(n, factor.m) - v_fact(k, factor.m) - v_fact(n - k, factor.m);
+    if (alpha >= factor.x) return 0; // nCk divisible by m^x
 
     int cycle = prod_cycle(factor);
     int nom = factor_without_m_mod(n, cycle, factor);
@@ -207,7 +204,6 @@ signed main() {
     factorization();
     int T;
     cin >> T;
-    while (T--)
-        nCk_mod_M();
+    while (T--) nCk_mod_M();
     return 0;
 }

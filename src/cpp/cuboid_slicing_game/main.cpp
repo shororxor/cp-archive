@@ -31,18 +31,14 @@ using namespace std::complex_literals;
 #define ite std::vector<int>::iterator
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -59,28 +55,19 @@ int getGrundyValue(int x, int y, int z) {
     vector<int> Q;
     FOR(i, 1, x) FOR(j, 1, y) FOR(k, 1, z) {
         int nim = 0;
-        if (i - 1 >= 1 && j - 1 >= 1 && k - 1 >= 1)
-            nim ^= g[i - 1][j - 1][k - 1];
-        if (i - 1 >= 1 && j - 1 >= 1 && z - k >= 1)
-            nim ^= g[i - 1][j - 1][z - k];
-        if (i - 1 >= 1 && y - j >= 1 && k - 1 >= 1)
-            nim ^= g[i - 1][y - j][k - 1];
-        if (i - 1 >= 1 && y - j >= 1 && z - k >= 1)
-            nim ^= g[i - 1][y - j][z - k];
-        if (x - i >= 1 && j - 1 >= 1 && k - 1 >= 1)
-            nim ^= g[x - i][j - 1][k - 1];
-        if (x - i >= 1 && j - 1 >= 1 && z - k >= 1)
-            nim ^= g[x - i][j - 1][z - k];
-        if (x - i >= 1 && y - j >= 1 && k - 1 >= 1)
-            nim ^= g[x - i][y - j][k - 1];
-        if (x - i >= 1 && y - j >= 1 && z - k >= 1)
-            nim ^= g[x - i][y - j][z - k];
+        if (i - 1 >= 1 && j - 1 >= 1 && k - 1 >= 1) nim ^= g[i - 1][j - 1][k - 1];
+        if (i - 1 >= 1 && j - 1 >= 1 && z - k >= 1) nim ^= g[i - 1][j - 1][z - k];
+        if (i - 1 >= 1 && y - j >= 1 && k - 1 >= 1) nim ^= g[i - 1][y - j][k - 1];
+        if (i - 1 >= 1 && y - j >= 1 && z - k >= 1) nim ^= g[i - 1][y - j][z - k];
+        if (x - i >= 1 && j - 1 >= 1 && k - 1 >= 1) nim ^= g[x - i][j - 1][k - 1];
+        if (x - i >= 1 && j - 1 >= 1 && z - k >= 1) nim ^= g[x - i][j - 1][z - k];
+        if (x - i >= 1 && y - j >= 1 && k - 1 >= 1) nim ^= g[x - i][y - j][k - 1];
+        if (x - i >= 1 && y - j >= 1 && z - k >= 1) nim ^= g[x - i][y - j][z - k];
         seen[nim] = 1;
     }
 
     int res = 0;
-    while (seen[res])
-        ++res;
+    while (seen[res]) ++res;
     return g[x][y][z] = res;
 }
 
@@ -95,10 +82,8 @@ void compute() {
 void solve() {
     string name;
     cin >> name;
-    if (name == FIRST_)
-        FIRST = FIRST_, SECOND = SECOND_;
-    else
-        FIRST = SECOND_, SECOND = FIRST_;
+    if (name == FIRST_) FIRST = FIRST_, SECOND = SECOND_;
+    else FIRST = SECOND_, SECOND = FIRST_;
 
     compute();
     int n, x, y, z, nim = 0;

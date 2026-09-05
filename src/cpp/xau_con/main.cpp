@@ -31,18 +31,14 @@ using namespace std::complex_literals;
 #define ite std::vector<int>::iterator
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -62,16 +58,13 @@ void solve() {
 
     int n = lenPattern + 1 + lenStr;
     for (int i = 2, l = 0, r = 0; i <= n; i++) {
-        if (i <= r)
-            z[i] = min(z[i - l + 1], r - i + 1);
-        while (i + z[i] - 1 < n && pattern[1 + z[i]] == pattern[i + z[i]])
-            ++z[i];
+        if (i <= r) z[i] = min(z[i - l + 1], r - i + 1);
+        while (i + z[i] - 1 < n && pattern[1 + z[i]] == pattern[i + z[i]]) ++z[i];
         if (i + z[i] - 1 > r) {
             r = i + z[i] - 1;
             l = i;
         }
-        if (z[i] == lenPattern)
-            cout << i - lenPattern - 1 << ' ';
+        if (z[i] == lenPattern) cout << i - lenPattern - 1 << ' ';
     }
 }
 

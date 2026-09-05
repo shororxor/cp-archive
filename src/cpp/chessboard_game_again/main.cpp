@@ -31,18 +31,14 @@ using namespace std::complex_literals;
 #define ite std::vector<int>::iterator
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -53,20 +49,17 @@ const int MAXDIM = 15;
 int g[MAXDIM + 1][MAXDIM + 1];
 
 int getGrundyVal(int i, int j) {
-    if (g[i][j] != -1)
-        return g[i][j];
+    if (g[i][j] != -1) return g[i][j];
 
     vector<int> seen(300, false);
     for (int k = 0; k < 4; ++k) {
         int x = i + dx[k];
         int y = j + dy[k];
-        if (1 <= x && x <= 15 && 1 <= y && y <= 15)
-            seen[getGrundyVal(x, y)] = true;
+        if (1 <= x && x <= 15 && 1 <= y && y <= 15) seen[getGrundyVal(x, y)] = true;
     }
 
     int res = 0;
-    while (seen[res])
-        ++res;
+    while (seen[res]) ++res;
     return g[i][j] = res;
 }
 
@@ -100,7 +93,6 @@ signed main() {
     compute();
     int T;
     cin >> T;
-    while (T--)
-        solve();
+    while (T--) solve();
     return 0;
 }

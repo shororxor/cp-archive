@@ -14,10 +14,10 @@ class FastScanner {
     StringTokenizer st = new StringTokenizer("");
 
     String next() {
-        while (!st.hasMoreTokens())
-            try {
+        while (!st.hasMoreTokens()) try {
                 st = new StringTokenizer(br.readLine());
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
             }
         return st.nextToken();
     }
@@ -25,33 +25,34 @@ class FastScanner {
     String nextLine() {
         try {
             return br.readLine();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             return null;
         }
     }
 
-    int nextInt() { return Integer.parseInt(next()); }
+    int nextInt() {
+        return Integer.parseInt(next());
+    }
 
-    long nextLong() { return Long.parseLong(next()); }
+    long nextLong() {
+        return Long.parseLong(next());
+    }
 
-    char nextChar() { return next().charAt(0); }
+    char nextChar() {
+        return next().charAt(0);
+    }
 }
 
 class Solution {
-    Map<String, String> special = Map.ofEntries(
-        Map.entry("Á", "a"), Map.entry("á", "a"), Map.entry("Ð", "d"),
-        Map.entry("ð", "d"), Map.entry("É", "e"), Map.entry("é", "e"),
-        Map.entry("Í", "i"), Map.entry("í", "i"), Map.entry("Ó", "o"),
-        Map.entry("ó", "o"), Map.entry("Ú", "u"), Map.entry("ú", "u"),
-        Map.entry("Ý", "y"), Map.entry("ý", "y"), Map.entry("Þ", "th"),
-        Map.entry("þ", "th"), Map.entry("Æ", "ae"), Map.entry("æ", "ae"),
-        Map.entry("Ö", "o"), Map.entry("ö", "o"));
+    Map<String, String> special = Map.ofEntries(Map.entry("Á", "a"), Map.entry("á", "a"), Map.entry("Ð", "d"), Map.entry("ð", "d"), Map.entry("É", "e"), Map.entry("é", "e"), Map.entry("Í", "i"), Map.entry("í", "i"), Map.entry("Ó", "o"), Map.entry("ó", "o"), Map.entry("Ú", "u"), Map.entry("ú", "u"), Map.entry("Ý", "y"), Map.entry("ý", "y"), Map.entry("Þ", "th"), Map.entry("þ", "th"), Map.entry("Æ", "ae"), Map.entry("æ", "ae"), Map.entry("Ö", "o"), Map.entry("ö", "o"));
 
-    public boolean checkAsciiUpper(char c) { return (65 <= c && c <= 90); }
+    public boolean checkAsciiUpper(char c) {
+        return (65 <= c && c <= 90);
+    }
 
     public boolean checkValid(char c) {
-        return (48 <= c && c <= 57) || (65 <= c && c <= 90) ||
-            (97 <= c && c <= 122);
+        return (48 <= c && c <= 57) || (65 <= c && c <= 90) || (97 <= c && c <= 122);
     }
 
     public void run(FastScanner sc, PrintWriter out) {

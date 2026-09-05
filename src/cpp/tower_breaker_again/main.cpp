@@ -32,18 +32,14 @@ using namespace std::complex_literals;
 #define div div__
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -55,10 +51,8 @@ vector<int> div[MAX + 1];
 void sieve() {
     for (int a = 1; a * a <= MAX; a++) {
         for (int b = a; a * b <= MAX; b++) {
-            if (a > 1)
-                div[a * b].push_back(a);
-            if (a != b)
-                div[a * b].push_back(b);
+            if (a > 1) div[a * b].push_back(a);
+            if (a != b) div[a * b].push_back(b);
         }
     }
 }
@@ -66,14 +60,11 @@ void sieve() {
 int getGrundyValue(int x) {
     vector<bool> seen(100, false);
     for (int y : div[x]) {
-        if (y & 1)
-            seen[g[x / y]] = true;
-        else
-            seen[0] = true;
+        if (y & 1) seen[g[x / y]] = true;
+        else seen[0] = true;
     }
     int res = 0;
-    while (seen[res])
-        ++res;
+    while (seen[res]) ++res;
     return g[x] = res;
 }
 
@@ -109,7 +100,6 @@ signed main() {
     compute();
     int T;
     cin >> T;
-    while (T--)
-        solve();
+    while (T--) solve();
     return 0;
 }

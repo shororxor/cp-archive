@@ -41,6 +41,7 @@ class Solution {
 
 public class Main {
     static Solution solution = new Solution();
+
     public static void main(String[] args) throws Exception {
         solution.run();
         solution.out.close();

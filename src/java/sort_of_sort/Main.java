@@ -13,10 +13,10 @@ class FastScanner {
     StringTokenizer st = new StringTokenizer("");
 
     String next() {
-        while (!st.hasMoreTokens())
-            try {
+        while (!st.hasMoreTokens()) try {
                 st = new StringTokenizer(br.readLine());
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
             }
         return st.nextToken();
     }
@@ -24,16 +24,23 @@ class FastScanner {
     String nextLine() {
         try {
             return br.readLine();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             return null;
         }
     }
 
-    int nextInt() { return Integer.parseInt(next()); }
+    int nextInt() {
+        return Integer.parseInt(next());
+    }
 
-    long nextLong() { return Long.parseLong(next()); }
+    long nextLong() {
+        return Long.parseLong(next());
+    }
 
-    char nextChar() { return next().charAt(0); }
+    char nextChar() {
+        return next().charAt(0);
+    }
 }
 
 class Solution {

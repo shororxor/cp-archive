@@ -30,18 +30,14 @@ using namespace std::complex_literals;
 #define next __next
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -75,8 +71,7 @@ void process() {
 
     k = 1;
     for (; (1 << k) <= N; k++) {
-        if (classes == N)
-            break;
+        if (classes == N) break;
         FOR(i, 1, N) pr[i] = (p[i] - mask(k - 1) + N - 1) % N + 1;
         fill(cnt, cnt + classes + 1, 0);
 
@@ -86,10 +81,8 @@ void process() {
 
         c[k][p[1]] = classes = 1;
         FOR(i, 2, N) {
-            pii pre = {c[k - 1][p[i - 1]],
-                       c[k - 1][(p[i - 1] + mask(k - 1) - 1) % N + 1]};
-            pii cur = {c[k - 1][p[i]],
-                       c[k - 1][(p[i] + mask(k - 1) - 1) % N + 1]};
+            pii pre = {c[k - 1][p[i - 1]], c[k - 1][(p[i - 1] + mask(k - 1) - 1) % N + 1]};
+            pii cur = {c[k - 1][p[i]], c[k - 1][(p[i] + mask(k - 1) - 1) % N + 1]};
             c[k][p[i]] = pre == cur ? classes : ++classes;
         }
     }
@@ -106,19 +99,19 @@ void init() {
     FOR(i, 2, N) LOG2[i] = LOG2[i / 2] + 1;
 }
 
-void smallestCyclicShift() { printf("Smallest Cylic Shift = %d\n", p[2]); }
+void smallestCyclicShift() {
+    printf("Smallest Cylic Shift = %d\n", p[2]);
+}
 
 bool greater(int start, char T[]) {
     int i = 0, lenT = strlen(T + 1);
-    while (start + i - 1 < N && i < lenT && str[start + i] == T[1 + i])
-        i++;
+    while (start + i - 1 < N && i < lenT && str[start + i] == T[1 + i]) i++;
     return i == lenT - 1 ? false : str[start + i] > T[1 + i];
 }
 
 bool lesser(int start, char T[]) {
     int i = 0, lenT = strlen(T + 1);
-    while (start + i - 1 < N && i < lenT && str[start + i] == T[i + 1])
-        i++;
+    while (start + i - 1 < N && i < lenT && str[start + i] == T[i + 1]) i++;
     return str[start + i] < T[1 + i];
 }
 
@@ -126,20 +119,16 @@ void findSubstring(char T[]) {
     int L = 1, R = N, first = -1, second = -1;
     while (L <= R) {
         int M = (L + R) >> 1;
-        if (lesser(p[M], T))
-            L = M + 1;
-        else
-            R = M - 1;
+        if (lesser(p[M], T)) L = M + 1;
+        else R = M - 1;
     }
     first = L;
 
     R = N;
     while (L <= R) {
         int M = (L + R) >> 1;
-        if (greater(p[M], T))
-            R = M - 1;
-        else
-            L = M + 1;
+        if (greater(p[M], T)) R = M - 1;
+        else L = M + 1;
     }
     second = R;
     printf("Number of occurrence = %d\n", second - first + 1);
@@ -162,12 +151,10 @@ void buildLCP() {
         }
 
         int j = p[rank[i] + 1];
-        while (i + k - 1 < N && j + k - 1 < N && str[i + k] == str[j + k])
-            k++;
+        while (i + k - 1 < N && j + k - 1 < N && str[i + k] == str[j + k]) k++;
         lcp[rank[i]] = k;
         dp[rank[i]][0] = k;
-        if (k)
-            k--;
+        if (k) k--;
     }
 
     FOR(j, 1, LOG2[N])
@@ -177,8 +164,7 @@ void buildLCP() {
 
 int longestCommonPrefix(int i, int j) {
     int l = rank[i], r = rank[j];
-    if (l > r)
-        swap(l, r);
+    if (l > r) swap(l, r);
     int k = LOG2[--r - l + 1];
     return min(dp[l][k], dp[r - (1 << k) + 1][k]);
 }
@@ -187,8 +173,7 @@ int numStrings() {
     int ans = 0;
     FOR(i, 1, N) {
         ans += N - p[i];
-        if (i > 1)
-            ans -= lcp[i - 1];
+        if (i > 1) ans -= lcp[i - 1];
     }
     return ans;
 }
@@ -204,11 +189,9 @@ void solve() {
     scanf("%s", T + 1);
     T[strlen(T + 1) + 1] = '$';
     SuffixArray::findSubstring(T);
-    printf("Compare Two String: %d\n",
-           SuffixArray::compareTwoSubstrings(8, 11, 6));
+    printf("Compare Two String: %d\n", SuffixArray::compareTwoSubstrings(8, 11, 6));
     SuffixArray::buildLCP();
-    printf("Longest Common Prefix = %d\n",
-           SuffixArray::longestCommonPrefix(8, 18));
+    printf("Longest Common Prefix = %d\n", SuffixArray::longestCommonPrefix(8, 18));
     printf("Number of Substrings = %d\n", SuffixArray::numStrings());
 }
 

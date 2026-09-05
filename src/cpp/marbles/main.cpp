@@ -30,18 +30,14 @@ using namespace std::complex_literals;
 #define ite std::vector<int>::iterator
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -51,20 +47,16 @@ int getMex(vector<int> &Q) {
     int res = 0;
     sort(Q.begin(), Q.end());
     for (int &q : Q)
-        if (res == q)
-            ++res;
+        if (res == q) ++res;
     return res;
 }
 
 int getGrundyValue(int l, int c) {
     vector<int> Q;
     FOR(u, 1, 100) {
-        if (l - u >= 0)
-            Q.push_back(g[l - u][c]);
-        if (c - u >= 0)
-            Q.push_back(g[l][c - u]);
-        if (l - u >= 0 && c - u >= 0)
-            Q.push_back(g[l - u][c - u]);
+        if (l - u >= 0) Q.push_back(g[l - u][c]);
+        if (c - u >= 0) Q.push_back(g[l][c - u]);
+        if (l - u >= 0 && c - u >= 0) Q.push_back(g[l - u][c - u]);
     }
     return g[l][c] = getMex(Q);
 }

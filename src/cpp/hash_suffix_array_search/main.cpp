@@ -29,18 +29,14 @@ using namespace std::complex_literals;
 #define next __next
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -62,7 +58,9 @@ int c[MAX];
 int lenStr;
 char str[MAX];
 
-bool cmpInit(const SA &p1, const SA &p2) { return str[p1.pre] < str[p2.pre]; }
+bool cmpInit(const SA &p1, const SA &p2) {
+    return str[p1.pre] < str[p2.pre];
+}
 
 bool cmpNext(const SA &p1, const SA &p2) {
     return (p1.left == p2.left ? p1.right < p2.right : p1.left < p2.left);
@@ -70,8 +68,7 @@ bool cmpNext(const SA &p1, const SA &p2) {
 
 void output() {
     FOR(i, 1, lenStr)
-    printf("p[%d] = (%d, %d, %d) | c[%d] = %d\n", i, p[i].pre, p[i].left,
-           p[i].right, p[i].pre, c[p[i].pre]);
+    printf("p[%d] = (%d, %d, %d) | c[%d] = %d\n", i, p[i].pre, p[i].left, p[i].right, p[i].pre, c[p[i].pre]);
     printf("\n");
 }
 
@@ -85,17 +82,13 @@ void process() {
 
     k = 1;
     while ((1 << k++) <= lenStr) {
-        if (index == lenStr)
-            break;
+        if (index == lenStr) break;
         FOR(i, 1, lenStr)
-        p[i].left = c[p[i].pre],
-        p[i].right = c[(p[i].pre + ((1 << k) >> 1) - 1) % lenStr + 1];
+        p[i].left = c[p[i].pre], p[i].right = c[(p[i].pre + ((1 << k) >> 1) - 1) % lenStr + 1];
         stable_sort(p + 1, p + lenStr + 1, cmpNext);
         c[p[1].pre] = index = 1;
         FOR(i, 2, lenStr)
-        c[p[i].pre] = p[i - 1].left == p[i].left && p[i - 1].right == p[i].right
-                          ? index
-                          : ++index;
+        c[p[i].pre] = p[i - 1].left == p[i].left && p[i - 1].right == p[i].right ? index : ++index;
         SuffixArray::output();
     }
 }

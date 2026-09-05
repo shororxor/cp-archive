@@ -30,18 +30,14 @@ using namespace std::complex_literals;
 #define ite std::vector<int>::iterator
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -74,8 +70,7 @@ int getMex(vector<int> &Q) {
     int res = 0;
     sort(Q.begin(), Q.end());
     for (int &q : Q)
-        if (res == q)
-            ++res;
+        if (res == q) ++res;
     return res;
 }
 
@@ -91,10 +86,8 @@ void computeGrundy() {
 
 // dp topdown
 int getValue(int u) {
-    if (u == 0)
-        return g[u] = 0;
-    if (g[u] != -1)
-        return g[u];
+    if (u == 0) return g[u] = 0;
+    if (g[u] != -1) return g[u];
 
     vector<int> Q;
     FOR(i, 1, k) if (u - moves[i] >= 0) Q.push_back(getValue(u - moves[i]));
@@ -118,10 +111,8 @@ void solve() {
     FOR(i, 1, m) {
         cin >> l;
         FOR(i, 1, l) cin >> heaps[i];
-        if (nimGame())
-            cout << "W";
-        else
-            cout << "L";
+        if (nimGame()) cout << "W";
+        else cout << "L";
     }
 }
 

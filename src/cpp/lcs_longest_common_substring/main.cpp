@@ -32,18 +32,14 @@ using namespace std::complex_literals;
 #define next __next
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -83,15 +79,12 @@ void process() {
 
         c[k][p[1]] = classes = 1;
         FOR(i, 2, N) {
-            pii cur = {c[k - 1][p[i]],
-                       c[k - 1][(p[i] + mask(k - 1) - 1) % N + 1]};
-            pii pre = {c[k - 1][p[i - 1]],
-                       c[k - 1][(p[i - 1] + mask(k - 1) - 1) % N + 1]};
+            pii cur = {c[k - 1][p[i]], c[k - 1][(p[i] + mask(k - 1) - 1) % N + 1]};
+            pii pre = {c[k - 1][p[i - 1]], c[k - 1][(p[i - 1] + mask(k - 1) - 1) % N + 1]};
             c[k][p[i]] = cur == pre ? classes : ++classes;
         }
 
-        if (classes == N)
-            break;
+        if (classes == N) break;
         fill(cnt, cnt + classes + 1, 0);
     }
 }
@@ -107,17 +100,14 @@ void buildLCP() {
         }
 
         int j = p[rank[i] + 1];
-        while (i + k - 1 < N && j + k - 1 < N && str[i + k] == str[j + k])
-            ++k;
+        while (i + k - 1 < N && j + k - 1 < N && str[i + k] == str[j + k]) ++k;
         lcp[rank[i]] = k;
-        if (k)
-            k--;
+        if (k) k--;
     }
 
     int ans = 0;
     FOR(i, 2, N - 1) {
-        if (lcp[i] > ans && ((p[i] < lenStr1 && p[i + 1] > lenStr1) ||
-                             (p[i] > lenStr1 && p[i + 1] < lenStr1))) {
+        if (lcp[i] > ans && ((p[i] < lenStr1 && p[i + 1] > lenStr1) || (p[i] > lenStr1 && p[i + 1] < lenStr1))) {
             ans = lcp[i];
         }
     }

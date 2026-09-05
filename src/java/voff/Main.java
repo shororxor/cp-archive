@@ -31,8 +31,7 @@ class Solution {
         while (left <= n && right <= n) {
             while (a[left] + k > a[right]) {
                 right++;
-                if (right > n)
-                    break;
+                if (right > n) break;
             }
             ans = Math.max(right - left, ans);
             left++;

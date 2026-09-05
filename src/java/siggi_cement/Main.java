@@ -28,17 +28,17 @@ class Solution {
             if (a[i] + a[j] == k) {
                 ans = a[i];
                 i++;
-            } else if (a[i] + a[j] > k) {
+            }
+            else if (a[i] + a[j] > k) {
                 j--;
-            } else {
+            }
+            else {
                 i++;
             }
         }
 
-        if (ans == -1)
-            out.printf("%s\n", "Neibb");
-        else
-            out.printf("%d %d\n", ans, k - ans);
+        if (ans == -1) out.printf("%s\n", "Neibb");
+        else out.printf("%d %d\n", ans, k - ans);
     }
 }
 

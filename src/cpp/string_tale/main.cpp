@@ -31,18 +31,14 @@ using namespace std::complex_literals;
 #define next __next
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -55,26 +51,21 @@ char str[2 * MAX];
 int compute(const string &s1, const string &s2) {
     fill(z, z + lenStr + 1, 0);
     lenStr = 0;
-    for (auto &c : s1)
-        str[++lenStr] = c;
+    for (auto &c : s1) str[++lenStr] = c;
 
     str[++lenStr] = '#';
-    for (auto &c : s2)
-        str[++lenStr] = c;
+    for (auto &c : s2) str[++lenStr] = c;
 
     int ans = lenStr;
     z[1] = 0;
     for (int i = 2, l = 1, r = 1; i <= lenStr; i++) {
-        if (i <= r)
-            z[i] = min(z[i - l + 1], r - i + 1);
-        while (i + z[i] <= lenStr && str[z[i] + 1] == str[i + z[i]])
-            ++z[i];
+        if (i <= r) z[i] = min(z[i - l + 1], r - i + 1);
+        while (i + z[i] <= lenStr && str[z[i] + 1] == str[i + z[i]]) ++z[i];
         if (i + z[i] - 1 > r) {
             r = i + z[i] - 1;
             l = i;
         }
-        if (i + z[i] - 1 == lenStr)
-            minimize(ans, i);
+        if (i + z[i] - 1 == lenStr) minimize(ans, i);
     }
 
     return z[ans];
@@ -88,10 +79,8 @@ void solve() {
 
     int match1 = compute(s1, s2);
     int match2 = compute(s2, s1);
-    if (match1 + match2 == n)
-        cout << (match1 == n ? 0 : match2) << '\n';
-    else
-        cout << -1 << '\n';
+    if (match1 + match2 == n) cout << (match1 == n ? 0 : match2) << '\n';
+    else cout << -1 << '\n';
 }
 
 signed main() {

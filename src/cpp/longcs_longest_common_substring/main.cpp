@@ -32,18 +32,14 @@ using namespace std::complex_literals;
 #define next __next
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -69,23 +65,22 @@ void prepare() {
 
 int typeString(int i) {
     assert(i >= 1 && i <= N);
-    if (i == N)
-        return M + 1;
+    if (i == N) return M + 1;
     int L = 1;
     int R = M;
 
     while (L <= R) {
         int M = (L + R) >> 1;
-        if (segment[M].second >= i)
-            R = M - 1;
-        else
-            L = M + 1;
+        if (segment[M].second >= i) R = M - 1;
+        else L = M + 1;
     }
 
     return R + 1;
 }
 
-int getSum(int l, int r) { return sum[r] - sum[l - 1]; }
+int getSum(int l, int r) {
+    return sum[r] - sum[l - 1];
+}
 
 int getMin(int l, int r) {
     int k = LOG2[r - l + 1];
@@ -109,8 +104,7 @@ void process() {
 
     c[k][p[1].first] = classes = 1;
     FOR(i, 2, N)
-    c[k][p[i].first] =
-        str[p[i].first] == str[p[i - 1].first] ? classes : ++classes;
+    c[k][p[i].first] = str[p[i].first] == str[p[i - 1].first] ? classes : ++classes;
 
     k = 1;
     for (; (1 << k) <= N; k++) {
@@ -121,15 +115,12 @@ void process() {
 
         c[k][p[1].first] = 1;
         FOR(i, 1, N) {
-            pii cur = {c[k - 1][p[i].first],
-                       c[k - 1][(p[i].first + mask(k - 1) - 1) % N + 1]};
-            pii pre = {c[k - 1][p[i - 1].first],
-                       c[k - 1][(p[i - 1].first + mask(k - 1) - 1) % N + 1]};
+            pii cur = {c[k - 1][p[i].first], c[k - 1][(p[i].first + mask(k - 1) - 1) % N + 1]};
+            pii pre = {c[k - 1][p[i - 1].first], c[k - 1][(p[i - 1].first + mask(k - 1) - 1) % N + 1]};
             c[k][p[i].first] = cur == pre ? classes : ++classes;
         }
 
-        if (classes == N)
-            break;
+        if (classes == N) break;
         fill(cnt, cnt + classes + 1, 0);
     }
 
@@ -149,12 +140,10 @@ void buildLCP() {
         }
 
         int j = p[rank[i] + 1].first;
-        while (i + k - 1 < N && j + k - 1 < N && str[i + k] == str[j + k])
-            ++k;
+        while (i + k - 1 < N && j + k - 1 < N && str[i + k] == str[j + k]) ++k;
         lcp[rank[i]] = k;
         dp[rank[i]][0] = k;
-        if (k)
-            k--;
+        if (k) k--;
     }
 
     FOR(j, 1, LOG2[N])
@@ -196,7 +185,9 @@ void init() {
 }
 } // namespace SA
 
-void solve() { SA::init(); }
+void solve() {
+    SA::init();
+}
 
 signed main() {
 #ifndef ONLINE_JUDGE
@@ -211,7 +202,6 @@ signed main() {
     SA::prepare();
     int T;
     scanf("%d", &T);
-    while (T--)
-        solve();
+    while (T--) solve();
     return 0;
 }

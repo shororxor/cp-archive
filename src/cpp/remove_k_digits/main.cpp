@@ -36,8 +36,7 @@ class Solution {
         string rev(ans.rbegin(), ans.rend());
 
         int i = 0;
-        while (rev[i] == '0')
-            i++;
+        while (rev[i] == '0') i++;
         return rev == "" || i == (int)rev.size() ? "0" : rev.substr(i);
     }
 };

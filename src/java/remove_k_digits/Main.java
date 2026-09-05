@@ -34,8 +34,7 @@ class Solution {
         String rev = ans.reverse().toString();
 
         int i = 0;
-        while (i < rev.length() && rev.charAt(i) == '0')
-            i++;
+        while (i < rev.length() && rev.charAt(i) == '0') i++;
         return rev == "" || i == rev.length() ? "0" : rev.substring(i);
     }
 }
@@ -44,8 +43,7 @@ public class Main {
     static Solution solution = new Solution();
 
     public static void main(String[] args) throws Exception {
-        BufferedReader br =
-            new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(System.out);
 
         String num = br.readLine();

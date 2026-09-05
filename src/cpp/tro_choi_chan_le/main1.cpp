@@ -33,18 +33,14 @@ using namespace std::complex_literals;
 #define div div__
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -69,18 +65,14 @@ void solve() {
     FOR(i, 1, n) FOR(j, 1, n) {
         cin >> A[i][j];
         A[i][j] %= 2;
-        sum[i][j] = ((sum[i - 1][j] + sum[i][j - 1]) % 2 -
-                     (sum[i - 1][j - 1] + A[i][j]) % 2) %
-                    2;
+        sum[i][j] = ((sum[i - 1][j] + sum[i][j - 1]) % 2 - (sum[i - 1][j - 1] + A[i][j]) % 2) % 2;
     }
 
     g[0][0] = 0;
     FOR(x, 1, n) FOR(y, 1, n) {
         g[x][y] = 0;
-        if (!g[x - 1][y] && getSumRow(x, y) % 2 == 0)
-            g[x][y] = 1;
-        if (!g[x][y - 1] && getSumCol(x, y) % 2 == 0)
-            g[x][y] = 1;
+        if (!g[x - 1][y] && getSumRow(x, y) % 2 == 0) g[x][y] = 1;
+        if (!g[x][y - 1] && getSumCol(x, y) % 2 == 0) g[x][y] = 1;
     }
 
     cout << (g[n][n] == 1 ? "YES" : "NO") << '\n';
@@ -99,7 +91,6 @@ signed main() {
 
     int T;
     cin >> T;
-    while (T--)
-        solve();
+    while (T--) solve();
     return 0;
 }

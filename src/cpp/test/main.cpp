@@ -31,18 +31,14 @@ using namespace std::complex_literals;
 #define ite std::vector<int>::iterator
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -56,23 +52,18 @@ int kmp[MAX + 2];
 int match(char s1[MAX + 2], char s2[MAX + 2], int n, int m) {
     int k = kmp[1] = 0;
     FOR(i, 2, m) {
-        while (k > 0 && s2[k + 1] != s2[i])
-            k = kmp[k];
+        while (k > 0 && s2[k + 1] != s2[i]) k = kmp[k];
         kmp[i] = s2[k + 1] == s2[i] ? ++k : 0;
     }
 
     k = 0;
     FOR(i, 1, n) {
-        while (k > 0 && s2[k + 1] != s1[i])
-            k = kmp[k];
-        if (s2[k + 1] == s1[i])
-            k++;
-        if (k == m)
-            return m;
+        while (k > 0 && s2[k + 1] != s1[i]) k = kmp[k];
+        if (s2[k + 1] == s1[i]) k++;
+        if (k == m) return m;
     }
 
-    while (k > m || k > n)
-        k = kmp[k];
+    while (k > m || k > n) k = kmp[k];
     return k;
 }
 
@@ -88,7 +79,8 @@ int compute(vector<int> &order) {
         length -= m;
         length -= match(s[order[0]], s[order[2]], n, h);
         return length;
-    } else {
+    }
+    else {
         length -= k;
         FOR(i, 1, n) newStr[i] = s[order[0]][i];
         FOR(i, k + 1, m) newStr[n + i - k] = s[order[1]][i];
@@ -109,7 +101,8 @@ void solve() {
 
     do {
         minimize(ans, compute(order));
-    } while (next_permutation(order.begin(), order.end()));
+    }
+    while (next_permutation(order.begin(), order.end()));
 
     printf("%d\n", ans);
 }

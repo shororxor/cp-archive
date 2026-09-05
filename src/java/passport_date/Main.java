@@ -14,10 +14,10 @@ class FastScanner {
     StringTokenizer st = new StringTokenizer("");
 
     String next() {
-        while (!st.hasMoreTokens())
-            try {
+        while (!st.hasMoreTokens()) try {
                 st = new StringTokenizer(br.readLine());
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
             }
         return st.nextToken();
     }
@@ -25,25 +25,28 @@ class FastScanner {
     String nextLine() {
         try {
             return br.readLine();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             return null;
         }
     }
 
-    int nextInt() { return Integer.parseInt(next()); }
+    int nextInt() {
+        return Integer.parseInt(next());
+    }
 
-    long nextLong() { return Long.parseLong(next()); }
+    long nextLong() {
+        return Long.parseLong(next());
+    }
 
-    char nextChar() { return next().charAt(0); }
+    char nextChar() {
+        return next().charAt(0);
+    }
 }
 
 class Solution {
 
-    Map<String, String> months = Map.ofEntries(
-        Map.entry("JAN", "01"), Map.entry("FEB", "02"), Map.entry("MAR", "03"),
-        Map.entry("APR", "04"), Map.entry("MAY", "05"), Map.entry("JUN", "06"),
-        Map.entry("JUL", "07"), Map.entry("AUG", "08"), Map.entry("SEP", "09"),
-        Map.entry("OCT", "10"), Map.entry("NOV", "11"), Map.entry("DEC", "12"));
+    Map<String, String> months = Map.ofEntries(Map.entry("JAN", "01"), Map.entry("FEB", "02"), Map.entry("MAR", "03"), Map.entry("APR", "04"), Map.entry("MAY", "05"), Map.entry("JUN", "06"), Map.entry("JUL", "07"), Map.entry("AUG", "08"), Map.entry("SEP", "09"), Map.entry("OCT", "10"), Map.entry("NOV", "11"), Map.entry("DEC", "12"));
 
     public void run(FastScanner sc, PrintWriter out) {
         FastScanner sc = new FastScanner();

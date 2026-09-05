@@ -32,18 +32,14 @@ using namespace std::complex_literals;
 #define ite std::vector<int>::iterator
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -51,10 +47,10 @@ const int MAX = 100000;
 
 struct Disk {
     int inner, outer, height;
-    Disk(int i = 0, int o = 0, int h = 0) : inner(i), outer(o), height(h) {}
+    Disk(int i = 0, int o = 0, int h = 0) : inner(i), outer(o), height(h) {
+    }
     bool operator<(const Disk &other) const {
-        if (this->outer == other.outer)
-            return this->inner > other.inner;
+        if (this->outer == other.outer) return this->inner > other.inner;
         return this->outer > other.outer;
     }
 };
@@ -65,16 +61,15 @@ int dp[MAX + 1];
 struct BIT {
     int n;
     vector<int> f;
-    BIT(int n_) : n(n_), f(n + 1, 0) {}
+    BIT(int n_) : n(n_), f(n + 1, 0) {
+    }
 
     void update(int i, int x) {
-        for (; i <= n; i += i & -i)
-            maximize(f[i], x);
+        for (; i <= n; i += i & -i) maximize(f[i], x);
     }
     int getMax(int i) {
         int ans = 0;
-        for (; i >= 1; i -= i & -i)
-            maximize(ans, f[i]);
+        for (; i >= 1; i -= i & -i) maximize(ans, f[i]);
         return ans;
     }
 };

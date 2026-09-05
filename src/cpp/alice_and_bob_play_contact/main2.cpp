@@ -31,18 +31,14 @@ using namespace std::complex_literals;
 #define next __next
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -53,7 +49,9 @@ const int MAX_WORDS = 1e5;
 struct Node {
     int cnt;
     Node *child[ALPHABET_SIZE];
-    Node() { reset(); }
+    Node() {
+        reset();
+    }
     inline void reset() {
         cnt = 0;
         fill(child, child + ALPHABET_SIZE, nullptr);
@@ -67,14 +65,15 @@ Node *root;
 
 int n, m;
 
-Node *createNode() { return &nodes[trieNodeCount++]; }
+Node *createNode() {
+    return &nodes[trieNodeCount++];
+}
 
 void addString(const string &s) {
     Node *cur = root;
     for (auto &ch : s) {
         int c = ch - 'a';
-        if (!cur->child[c])
-            cur->child[c] = createNode();
+        if (!cur->child[c]) cur->child[c] = createNode();
         cur = cur->child[c];
         cur->cnt++;
     }
@@ -84,10 +83,8 @@ bool check(int x, const string &s) {
     Node *cur = root;
     for (int i = 0; i < (int)s.size() && x > 0; i++) {
         int c = s[i] - 'a';
-        if (!cur->child[c])
-            return false;
-        if (cur->child[c]->cnt < x)
-            return false;
+        if (!cur->child[c]) return false;
+        if (cur->child[c]->cnt < x) return false;
         cur = cur->child[c];
         x = x - 1;
     }
@@ -95,8 +92,7 @@ bool check(int x, const string &s) {
 }
 
 int search(const string &s) {
-    if (!root->child[s[0] - 'a'])
-        return 0;
+    if (!root->child[s[0] - 'a']) return 0;
     int L = 0;
     int R = root->child[s[0] - 'a']->cnt;
 
@@ -106,8 +102,8 @@ int search(const string &s) {
         if (check(M, s)) {
             res = M;
             L = M + 1;
-        } else
-            R = M - 1;
+        }
+        else R = M - 1;
     }
     return res;
 }
@@ -139,7 +135,6 @@ signed main() {
     cin.tie(0);
     cout.tie(0);
 
-    while (cin >> n >> m)
-        solve();
+    while (cin >> n >> m) solve();
     return 0;
 }

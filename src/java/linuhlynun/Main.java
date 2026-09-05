@@ -25,8 +25,7 @@ class Solution {
 
         for (int i = 1; i <= n; i++) {
             String[] token = br.readLine().split(" ");
-            a[i] = new Pair(Integer.parseInt(token[0]),
-                            Integer.parseInt(token[1]));
+            a[i] = new Pair(Integer.parseInt(token[0]), Integer.parseInt(token[1]));
         }
 
         Arrays.sort(a, 1, n + 1, (x, y) -> {
@@ -42,16 +41,15 @@ class Solution {
 
         int i = 1;
         while (true) {
-            if (i == n)
-                break;
+            if (i == n) break;
             if (sum[i - 1] - sum[0] == sum[n] - sum[i]) {
                 break;
             }
 
             if (sum[i] - sum[0] < sum[n] - sum[i]) {
                 i++;
-            } else
-                break;
+            }
+            else break;
         }
 
         out.printf("%d\n", a[i].first);

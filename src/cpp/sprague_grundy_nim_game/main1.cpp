@@ -29,18 +29,14 @@ using namespace std::complex_literals;
 #define ite std::vector<int>::iterator
 
 template <class T> bool minimize(T &x, T y) {
-    if (x > y)
-        x = y;
-    else
-        return 0;
+    if (x > y) x = y;
+    else return 0;
     return 1;
 }
 
 template <class T> bool maximize(T &x, T y) {
-    if (x < y)
-        x = y;
-    else
-        return 0;
+    if (x < y) x = y;
+    else return 0;
     return 1;
 }
 
@@ -69,23 +65,19 @@ int getMex(vector<int> &U) {
     int res = 0;
     sort(U.begin(), U.end());
     for (int &u : U)
-        if (res == u)
-            ++res;
+        if (res == u) ++res;
     return res;
 }
 
 // Single Game
 State getState(int u) {
-    if (dp[u] != State::Default)
-        return dp[u];
-    if (u == 0)
-        return dp[u] = State::Lose;
+    if (dp[u] != State::Default) return dp[u];
+    if (u == 0) return dp[u] = State::Lose;
 
     // for valid move (u, v) in Q
     for (int p = 1; p * p <= u; p++) {
         int v = u - p * p;
-        if (getState(v) == State::Lose)
-            return dp[u] = State::Win;
+        if (getState(v) == State::Lose) return dp[u] = State::Win;
     }
 
     return dp[u] = State::Lose;
@@ -93,8 +85,7 @@ State getState(int u) {
 
 // Sprague-Grundy
 int getValue(int u) {
-    if (g[u] != -1)
-        return g[u];
+    if (g[u] != -1) return g[u];
 
     vector<int> U;
     for (int p = 1; p * p <= u; p++) {
@@ -110,8 +101,7 @@ int getValue(int u) {
 // Combined Nim Game
 int nimGame(vector<int> &G) {
     int nim = 0;
-    for (int &g : G)
-        nim ^= g;
+    for (int &g : G) nim ^= g;
     return nim > 0 ? 1 : 2;
 }
 
@@ -131,8 +121,7 @@ void solve() {
     printf("Nim game --> winner is player = %d\n", nimGame(G));
 
     FOR(i, 1, 10)
-    printf("dp[%d] = %s | state[%d] = %s \n", i, convert(dp[i]).c_str(), i,
-           convert(state[i]).c_str());
+    printf("dp[%d] = %s | state[%d] = %s \n", i, convert(dp[i]).c_str(), i, convert(state[i]).c_str());
 }
 
 signed main() {
